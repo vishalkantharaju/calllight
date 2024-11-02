@@ -11,7 +11,7 @@ function App() {
       <div className="relative flex items-center justify-end h-full">
 
         {/* Main Content */}
-        <div className="w-1/3 sm:w-1/3 md:w-1/2 lg:w-3/4 h-full">
+        <div className="w-1/3 sm:w-1/3 md:w-1/2 lg:w-3/5 h-full">
           <img
             src={background}
             alt="Main Background"
