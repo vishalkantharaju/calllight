@@ -6,19 +6,14 @@ function SignIn() {
   const nav = useNavigate();
   const [showForm, setShowForm] = useState(false); 
   const [formSlide, setFormSlide] = useState(false);
-  const [nurseClicked, setNurseClicked] = useState(false);
-  const [patientClicked, setPatientClicked] = useState(false);
+  const [activeRole, setActiveRole] = useState<'nurse' | 'patient' | null>(null);
 
   const toggleForm = (role: 'nurse' | 'patient') => {
     setShowForm(true); 
     setTimeout(() => {
       setFormSlide(true); 
     }, 10); 
-    if (role === 'nurse') {
-        setNurseClicked(true);
-      } else {
-        setPatientClicked(true);
-    }
+    setActiveRole(role);
   };
 
   return (
@@ -48,14 +43,14 @@ function SignIn() {
                 <div className="flex items-center space-x-4">
                     {/* Button */}
                     <button onClick={() => toggleForm('nurse')} className={`mt-8 px-6 py-2 
-                        ${nurseClicked ? 'font-bold': 'font-semibold'} 
-                        bg-[#FFB561] text-[#1C2A4D] rounded-md transition duration-200`}>
+                        ${activeRole === 'nurse' ? 'bg-white' : 'bg-[#FFB561]'} 
+                        font-bold text-[#1C2A4D] rounded-md transition duration-200`}>
                         Nurse
                     </button>
                     {/* Button */}
                     <button onClick={() => toggleForm('patient')} className={`mt-8 px-6 py-2 
-                        ${patientClicked ? 'font-bold': 'font-semibold'} 
-                        bg-[#FFB561] text-[#1C2A4D] rounded-md transition duration-200`}>
+                        ${activeRole === 'patient' ? 'bg-white' : 'bg-[#FFB561]'} 
+                        font-bold text-[#1C2A4D] rounded-md transition duration-200`}>
                         Patient
                     </button>
                 </div>
