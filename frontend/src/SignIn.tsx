@@ -34,7 +34,7 @@ function SignIn() {
             </div>
 
             {/* Text */}
-            <div className="absolute top-40 left-12 flex flex-col items-start">
+            <div className="absolute top-40 left-16 flex flex-col items-start">
                 <span className="text-white text-6xl font-bold">
                 WELCOME
                 </span>
