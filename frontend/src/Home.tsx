@@ -11,7 +11,7 @@ function App() {
       <div className="relative flex items-center justify-end h-full">
 
         {/* Main Content */}
-        <div className="w-1/3 sm:w-1/3 md:w-1/2 h-full">
+        <div className="w-1/3 sm:w-1/3 md:w-1/2 lg:w-3/4 h-full">
           <img
             src={background}
             alt="Main Background"
@@ -32,7 +32,7 @@ function App() {
           
           <div className="flex items-center space-x-4">
             <img src={orange_logo} className="w-14 h-14" />
-            <span className="text-[#FFB561] text-4xl font-semibold">
+            <span className="mt-1 text-[#FFB561] text-4xl font-semibold">
               CALL LIGHT
             </span>
           </div>
