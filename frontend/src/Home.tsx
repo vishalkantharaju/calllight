@@ -48,7 +48,8 @@ function App() {
           {/* Button */}
           <button onClick={() => {nav('/login')}} className="mt-8 px-6 py-2 border-2 border-[#FFB561] 
             text-white font-semibold bg-transparent rounded-md 
-              hover:bg-[#FFB561] hover:text-white transition duration-200">
+              hover:bg-[#FFB561] hover:text-white transition duration-200 ease-in-out 
+                 hover:scale-110 active:scale-95">
             SIGN IN
           </button>
         </div>
