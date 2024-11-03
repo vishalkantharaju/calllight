@@ -110,7 +110,7 @@ class CreateReport(MethodView):
             except Exception as e:
                 return jsonify({"error": str(e)}), 500
         
-        id, err = db_model.create_report(ReportSchema(patient_id=patient_id, nurse_id=nurse_id, transcript=transcript, date_created = datetime.now(), date_modified = datetime.now()))
+        id, err = db_model.create_report(ReportSchema(patient_id=patient_id, nurse_id=nurse_id, transcript=transcript, date_created = datetime.now(), date_modified = datetime.now(), resolved=False))
 
         if err is not None:
             return jsonify(dict(ErrorResponse(err=err))), 400

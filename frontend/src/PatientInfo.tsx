@@ -82,7 +82,7 @@ function PatientInfo() {
         <div className="absolute top-4 md:top-8 left-36 md:left-64 flex flex-col items-start space-y-6">
         <div className="flex items-center space-x-16">
           <span className="text-white text-xl md:text-4xl font-bold">
-          {data ? (<div> {data.name} ({data.age} {data.gender == 'Male' ? 'M' : 'F'}) </div>)  : 'Loading...'}
+          {data ? (<div> {data.name} ({data.age} {data.gender == 'Male' ? 'M' : 'F'}) </div>)  : ''}
           </span>
           <button onClick={() => {nav('/')}} style={{ border: 'none', background: 'transparent' }}>
             <img src={orange_logo} className="w-14 h-14" />

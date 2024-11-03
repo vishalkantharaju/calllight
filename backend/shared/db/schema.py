@@ -42,3 +42,4 @@ class ReportSchema(DatabaseSchema):
     transcript: str
     summary: Optional[str]
     priority: Optional[str]
+    resolved: bool
