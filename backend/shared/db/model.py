@@ -5,6 +5,7 @@ from shared.db.schema import (
     ReportSchema,
     NurseSchema
 )
+from shared.types.patient import Mine
 from typing import List, Tuple
 from pymongo.errors import PyMongoError
 from bson.objectid import ObjectId
@@ -14,6 +15,9 @@ from pymongo.errors import PyMongoError
 from bson.objectid import ObjectId
 from datetime import datetime
 import random
+import openai
+
+openai.api_key = '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' 
 
 MONGO_URI = (
     f"mongodb+srv://{DB_USERNAME}:{DB_PASSWORD}@cluster0.kuetl.mongodb.net/?retryWrites=true&w=majority"
@@ -162,3 +166,94 @@ def create_report(report: ReportSchema) -> Tuple[str, str]:
     report.patient_id = ObjectId(report.patient_id)
     db.requests.insert_one(report.dict())
     return '', None
+
+def fetch_nurse(id: ObjectId) -> Tuple[PatientSchema, str]:
+    document = db.nurses.find_one({"_id": ObjectId(id)})
+
+    # print('asas31312')
+    if document:
+        # document['hospital_id'] = ObjectId(document['hospital_id'])
+        document['_id'] = ObjectId(document['_id'])
+        resp = NurseSchema(**document)
+        return resp, None
+    else:
+        return None, "Fetch failed"
+    
+def populate_requests() -> None:
+    # Retrieve all nurses' and patients' IDs from the database
+    nurses = list(db.nurses.find({}, {"_id": 1}))
+    patients = list(db.patients.find({}, {"_id": 1}))
+    nurse_ids = [nurse["_id"] for nurse in nurses]
+    patient_ids = [patient["_id"] for patient in patients]
+
+    # Define sample request transcripts
+    transcripts = [
+        "Please give me water", "I need pain medicine", "Could you help me to the bathroom?",
+        "I would like to speak to a doctor", "Can someone adjust my bed?", 
+        "I need assistance with my meal", "I feel dizzy", "I need my medication",
+        "Please bring me a blanket", "Can I have some ice?", "I need to change my bandage",
+        "Can someone help me sit up?", "I need help with my IV", "I feel nauseous",
+        "Could someone check my vitals?", "I need my wheelchair", "Can I have a pillow?",
+        "Please bring me my phone", "Could someone help me with my oxygen mask?", "I need help to stand up"
+    ]
+    current_datetime = datetime.now()
+    # Create 20 report entries
+    requests = []
+    for i in range(20):
+        t = random.choice(transcripts)
+        prompt = f"""
+        You are an assistant that classifies the severity of patient requests based on urgency and impact. 
+
+        Request:
+        "{t}"
+
+        Classify this request as one of the following: Emergency, Immediate, Moderate, Routine. As an example, Routine would be a request for non-time sensitive matters, like a request for water or for a routine check-up. 
+        Moderate is for requests with more of a deadline, like a request to go to the bathroom. 
+        Immediate is something urgent like a high pain level.
+        Emergency is the highest level, for things like abnormal blood pressure.
+
+        Provide a single word response.
+        """
+
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0  # Low temperature for consistent outputs
+        )
+
+        # Parse and return the response
+        answer = response.choices[0].message["content"].strip()
+
+        report = ReportSchema(
+            patient_id=patient_ids[i % len(patient_ids)],  # Distribute patient_ids equally
+            nurse_id=nurse_ids[i % len(nurse_ids)],        # Distribute nurse_ids equally
+            transcript=t,
+            resolved=True,
+            priority=answer,
+            date_created=current_datetime,
+            date_modified=current_datetime
+
+        )
+        requests.append(report.dict(exclude_unset=True))
+
+    # Insert requests into the database
+    db.requests.insert_many(requests)
+    print("Successfully populated 20 requests into the database.")
+
+def mine(id: ObjectId) -> Tuple[List[Mine], str]:
+    query = {"nurse_id": id}
+
+    # Query the database using the find method.
+    cursor = db.requests.find(query)
+
+    if cursor:
+        ambulances = []
+
+        for ambulance_doc in cursor:
+
+            ambulance = Mine(**ambulance_doc)
+            ambulances.append(ambulance)
+
+        return ambulances, None
+    else:
+        return None, "Error"

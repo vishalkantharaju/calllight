@@ -43,3 +43,4 @@ class ReportSchema(DatabaseSchema):
     summary: Optional[str]
     priority: Optional[str]
     resolved: bool
+    priority: str

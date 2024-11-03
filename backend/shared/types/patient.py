@@ -20,3 +20,10 @@ class GetPatientResponse(GeneralResponse):
     gender: str
     age: int
     room: int
+
+class Mine(BaseModel):
+    transcript: str
+    priority: str
+
+class MineList(GeneralResponse):
+    ambulances: List[Mine]

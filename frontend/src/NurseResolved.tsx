@@ -2,22 +2,26 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'; 
 import nurse_background from './assets/nurse_background.svg'
 import orange_logo from './assets/orange_logo.png'
+import { useLocation } from 'react-router-dom';
 
 function NurseResolved() {
   const nav = useNavigate();
-  const [activeTab, setActiveTab] = useState('resolved');
+  const [activeTab, setActiveTab] = useState('nurse');
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const id = queryParams.get('id');
 
   const handleNavigation = (tab: string) => {
     setActiveTab(tab);
     switch (tab) {
       case 'nurse':
-        nav('/nurse'); // Replace with your actual route
+        nav(`/nurse?id=${id}`); // Use the fetched id
         break;
       case 'resolved':
-        nav('/nurse-resolved'); // Replace with your actual route
+        nav(`/nurse-resolved?id=${id}`); // Use the fetched id
         break;
       case 'total':
-        nav('/nurse-total'); // Replace with your actual route
+        nav(`/nurse-total?id=${id}`); // Use the fetched id
         break;
       default:
         break;

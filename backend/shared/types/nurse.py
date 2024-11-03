@@ -10,3 +10,9 @@ class NurseLoginRequest(BaseModel):
 
 class NurseLoginResponse(GeneralResponse):
     id: str
+
+class GetNurseRequest(BaseModel):
+    id: str
+
+class GetNurseResponse(GeneralResponse):
+    name: str
