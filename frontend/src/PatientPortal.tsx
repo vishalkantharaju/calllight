@@ -1,10 +1,32 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react'; 
+import { useState, useEffect } from 'react'; 
 import nurse_background from './assets/nurse_background.svg';
 import mic from './assets/mic.png';
 
 function PatientPortal() {
   const nav = useNavigate();
+  const [activeTab, setActiveTab] = useState('patient');
+
+  useEffect(() => {
+    nav('/patient'); // Navigate to the requests page on mount
+  }, [nav]); // Add nav as a dependency
+
+  const handleNavigation = (tab: string) => {
+    setActiveTab(tab);
+    switch (tab) {
+      case 'patient':
+        nav('/patient'); // Replace with your actual route
+        break;
+      case 'providers':
+        nav('/patient-providers'); // Replace with your actual route
+        break;
+      case 'timeline':
+        nav('/patient-info'); // Replace with your actual route
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div className="relative h-screen w-screen">
@@ -21,9 +43,27 @@ function PatientPortal() {
             PATIENT NAME (BACKEND)
           </span>
           <div className="flex items-center space-x-16">
-            <span className="mt-[3rem] text-xs md:text-lg text-[#1C2A4D] font-semibold">Requests</span>
-            <span className="mt-[3rem] text-xs md:text-lg text-[#1C2A4D] font-semibold">Your Providers</span>
-            <span className="mt-[3rem] text-xs md:text-lg text-[#1C2A4D] font-semibold">Your Timeline</span>
+            <button 
+              className={`mt-[2.5rem] h-12 w-32 ${activeTab === 'patient' ? 'bg-[#E4E4E4]' : 'bg-transparent'}`} 
+              style={{ border: 'none' }} 
+              onClick={() => handleNavigation('patient')}
+            >
+              <span className="text-xs md:text-lg text-[#1C2A4D] font-semibold">Requests</span>
+            </button>
+            <button 
+              className={`mt-[2.5rem] h-12 w-32 ${activeTab === 'providers' ? 'bg-[#E4E4E4]' : 'bg-transparent'}`} 
+              style={{ border: 'none' }} 
+              onClick={() => handleNavigation('providers')}
+            >
+              <span className="text-xs md:text-lg text-[#1C2A4D] font-semibold">Your Providers</span>
+            </button>
+            <button 
+              className={`mt-[2.5rem] h-12 w-32 ${activeTab === 'timeline' ? 'bg-[#E4E4E4]' : 'bg-transparent'}`} 
+              style={{ border: 'none' }} 
+              onClick={() => handleNavigation('timeline')}
+            >
+              <span className="text-xs md:text-lg text-[#1C2A4D] font-semibold">Your Timeline</span>
+            </button>
           </div>
 
           {/* Main Flex Container */}
