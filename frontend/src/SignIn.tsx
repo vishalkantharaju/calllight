@@ -42,6 +42,7 @@ function SignIn() {
                 </span>
 
                 <div className="flex items-center space-x-4">
+
                     {/* Button */}
                     <button onClick={() => toggleForm('nurse')} 
                     className={`mt-8 px-6 py-2 
@@ -51,6 +52,7 @@ function SignIn() {
                         rounded-md transition duration-200`}>
                         Nurse
                     </button>
+                    
                     {/* Button */}
                     <button onClick={() => toggleForm('patient')} className={`mt-8 px-6 py-2 
                         ${activeRole === 'patient' ? 'bg-[#FFB561] text-[#1C2A4D]' : 'text-white bg-transparent border-[#FFB561]'} 
