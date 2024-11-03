@@ -20,7 +20,7 @@ function SignIn() {
   return (
     <div className="relative h-screen w-screen">
         <div className="relative flex items-center justify-end h-full">
-            {/* Main Content */}
+            {/* Background */}
             <div className="w-full h-full">
                 <img
                 src={login_background}
