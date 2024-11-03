@@ -1,11 +1,18 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from api.v1.nurse import nurse_bp
+import whisper
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}) 
 
+whisper_model = whisper.load_model("small")
+# result = whisper_model.transcribe("transcribe_test/wav/converted_audio.wav")
+
 app.register_blueprint(nurse_bp, url_prefix="/api/v1/nurse")
+
+def get_whisper_model():
+    return whisper_model
 
 @app.errorhandler(413)
 def page_not_found(error):
