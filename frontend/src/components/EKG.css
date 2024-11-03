@@ -1,0 +1,15 @@
+/* EKG.css */
+.ekg-animation path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: ekgPulse 1s linear infinite;
+}
+
+@keyframes ekgPulse {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}

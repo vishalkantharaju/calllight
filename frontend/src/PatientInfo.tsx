@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react'; 
 import nurse_background from './assets/nurse_background.svg';
 import timeline from './assets/timeline.png';
+import EKG from './components/Heart_Rate';
 
 function PatientInfo() {
   const nav = useNavigate();
@@ -67,15 +68,21 @@ function PatientInfo() {
               <span className="mt-5 text-[#1C2A4D] md:text-lg font-bold">
                   Vitals
               </span>
-
+              
+              <div className="flex mt-8 space-x-8 items-center ">
               {/* Heart Rate */}
-              <div className="flex items-center flex-col mt-8 w-36 h-20 bg-white shadow-md rounded-lg p-2">
-                <p className="text-sm font-bold text-red-700">
-                  Heart Rate
-                </p>
-                <p className="text-xl font-bold mt-2 text-red-700">
-                  96 bpm
-                </p>
+                <div className="flex items-center flex-col mt-8 w-36 h-20 bg-white shadow-md rounded-lg p-2">
+                  <p className="text-sm font-bold text-red-700">
+                    Heart Rate
+                  </p>
+                  <p className="text-xl font-bold mt-2 text-red-700">
+                    96 bpm
+                  </p>
+                </div>
+                {/* EKG Symbol */}
+                <div className="mt-6">
+                    <EKG />
+                </div>
               </div>
               
               <div className="flex mt-8 space-x-8">
