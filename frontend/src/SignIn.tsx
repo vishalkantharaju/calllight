@@ -162,10 +162,15 @@ function SignIn() {
               <Input placeholder='Enter your email' className='border mt-2 rounded-md w-3/4 p-2' value={usery} onChange={handleUsernameChange}/>
             </div>
             <div className="mt-4">
-              <label className="block text-sm font-semibold 
-                text-[#1C2A4D]">Password</label>
-              <Input placeholder='Enter your password' className='border mt-2 rounded-md w-3/4 p-2' value={passy} onChange={handlePasswordChange}/>
-            </div>
+                <label className="block text-sm font-semibold text-[#1C2A4D]">Password</label>
+                <Input
+                    type="password"  
+                    placeholder="Enter your password"
+                    className="border mt-2 rounded-md w-3/4 p-2"
+                    value={passy}
+                    onChange={handlePasswordChange}
+                />
+                </div>
             <button
               type="button"
               className="text-center mt-6 px-4 py-2 bg-[#FFB561] 
