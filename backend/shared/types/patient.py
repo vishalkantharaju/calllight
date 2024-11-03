@@ -10,3 +10,13 @@ class PatientLoginRequest(BaseModel):
 
 class PatientLoginResponse(GeneralResponse):
     id: str
+
+class GetPatientRequest(BaseModel):
+    id: str
+
+class GetPatientResponse(GeneralResponse):
+    nurse_id: str
+    name: str
+    gender: str
+    age: int
+    room: int

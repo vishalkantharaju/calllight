@@ -38,10 +38,6 @@ function SignIn() {
   };
 
   function login() {
-    console.log('asa')
-    setTimeout(() => {
-      console.log('Action performed after delay');
-    }, 2000)
     if (activeRole === null) {
         toast({
             title: "Uh-oh! Looks like you forgot to fill out a field!",
@@ -61,8 +57,8 @@ function SignIn() {
           .then(data => {
             if (data.success) {  
               const url = `/nurse?id=${data.id}`;
-                console.log(url);
-                nav(url);
+              console.log(url);
+              nav(url);
             } else {
                 toast({
                     title: "Wrong credentials entered!",
@@ -86,7 +82,8 @@ function SignIn() {
           .then(response => response.json() as Promise<LoginResponse>)
           .then(data => {
             if (data.success) {
-                const url = `/patient?id=${data.id}`;
+                const url = `/patient?id=${encodeURIComponent(data.id)}`;
+                console.log(url)
                 nav(url);
             } else {
                 toast({

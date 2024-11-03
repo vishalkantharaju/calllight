@@ -143,3 +143,22 @@ def populate_patients() -> None:
 
 def delete_patients() -> Tuple[str, str]:
     db.patients.delete_many({})
+
+def fetch_patient(id: ObjectId) -> Tuple[PatientSchema, str]:
+    document = db.patients.find_one({"_id": ObjectId(id)})
+    
+    # print('asas31312')
+    if document:
+        # document['hospital_id'] = ObjectId(document['hospital_id'])
+        document['_id'] = ObjectId(document['_id'])
+        document['nurse_id'] = ObjectId(document['nurse_id'])
+        resp = PatientSchema(**document)
+        return resp, None
+    else:
+        return None, "Login failed"
+    
+def create_report(report: ReportSchema) -> Tuple[str, str]:
+    report.nurse_id = ObjectId(report.nurse_id)
+    report.patient_id = ObjectId(report.patient_id)
+    db.requests.insert_one(report.dict())
+    return '', None

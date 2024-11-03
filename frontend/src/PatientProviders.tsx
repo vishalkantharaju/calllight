@@ -4,28 +4,71 @@ import nurse_background from './assets/nurse_background.svg';
 import providers from './assets/providers.png';
 import mic from './assets/mic.png';
 import orange_logo from './assets/orange_logo.png'
+import { useLocation } from 'react-router-dom';
+
+interface GetPatientResponse {
+  id: string,
+  date_created: Date,
+  date_modified: Date,
+  room: number,
+  gender: string,
+  age: number,
+  name: string
+}
 
 function PatientProviders() {
   const nav = useNavigate();
   const [activeTab, setActiveTab] = useState('providers');
-
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const id = queryParams.get('id');
+  const [data, setData] = useState<null | GetPatientResponse>(null);
 
   const handleNavigation = (tab: string) => {
     setActiveTab(tab);
+    console.log(tab)
     switch (tab) {
       case 'patient':
-        nav('/patient'); // Replace with your actual route
+      console.log('herello')  
+      nav(`/patient?id=${id}`); // Replace with your actual route
         break;
       case 'providers':
-        nav('/patient-providers'); // Replace with your actual route
+        nav(`/patient-providers?id=${id}`); // Replace with your actual route
         break;
       case 'timeline':
-        nav('/patient-info'); // Replace with your actual route
+        nav(`/patient-info?id=${id}`); // Replace with your actual route
         break;
       default:
         break;
     }
   };
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const searchValue = urlParams.get('id')
+    if (!searchValue) {
+        nav('/login')
+    } else {
+        fetch(
+            'http://localhost:5000' + `/api/v1/patient/fetch?id=${searchValue}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          )
+          .then(response => response.json() as Promise<GetPatientResponse>)
+          .then(data => {
+            console.log(data)
+            setData(data);
+            console.log('done')
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+    }
+}, [])
 
   return (
     <div className="relative h-screen w-screen">
@@ -40,7 +83,7 @@ function PatientProviders() {
         <div className="absolute top-4 md:top-8 left-36 md:left-64 flex flex-col items-start space-y-6">
         <div className="flex items-center space-x-16">
           <span className="text-white text-xl md:text-4xl font-bold">
-            PATIENT NAME (BACKEND)
+          {data ? (<div> {data.name} ({data.age} {data.gender == 'Male' ? 'M' : 'F'}) </div>)  : 'Loading...'}
           </span>
           <button onClick={() => {nav('/')}} style={{ border: 'none', background: 'transparent' }}>
             <img src={orange_logo} className="w-14 h-14" />
