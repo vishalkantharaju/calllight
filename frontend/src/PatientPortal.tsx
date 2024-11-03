@@ -318,9 +318,11 @@ const recordingOff = () => {
                 </div>
               </div>
               <span className="mt-4 text-[#1C2A4D] text-lg md:text-xl font-bold">Quick requests:</span>
-              <button onClick={() => makeRequest("I need water", "en")} className="mt-4 bg-[#1C2A4D] text-white text-sm py-2 w-24 rounded hover:bg-[#6f88c9] hover:scale-110 active:scale-95 transition">Water</button>
-              <button onClick={() => makeRequest("I need pain relief", "en")} className="mt-2 bg-[#1C2A4D] text-white text-sm py-2 w-24 rounded hover:bg-[#6f88c9] hover:scale-110 active:scale-95 transition">Pain Relief</button>
-              <button onClick={() => makeRequest("I need to go to the bathroom", "en")} className="mt-2 bg-[#1C2A4D] text-white text-sm py-2 w-24 rounded hover:bg-[#6f88c9] hover:scale-110 active:scale-95 transition">Restroom</button>
+              <div className="flex items-center space-x-4">
+                <button onClick={() => makeRequest("I need water", "en")} className="mt-4 bg-[#1C2A4D] text-white text-sm py-2 w-24 rounded hover:bg-[#6f88c9] hover:scale-110 active:scale-95 transition">Water</button>
+                <button onClick={() => makeRequest("I need pain relief", "en")} className="mt-4 bg-[#1C2A4D] text-white text-sm py-2 w-24 rounded hover:bg-[#6f88c9] hover:scale-110 active:scale-95 transition">Pain Relief</button>
+                <button onClick={() => makeRequest("I need to go to the bathroom", "en")} className="mt-4 bg-[#1C2A4D] text-white text-sm py-2 w-24 rounded hover:bg-[#6f88c9] hover:scale-110 active:scale-95 transition">Restroom</button>
+              </div>
             </div>
 
             {/* Right Column - Requests */}
