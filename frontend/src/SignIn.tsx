@@ -43,14 +43,14 @@ function SignIn() {
                 <div className="flex items-center space-x-4">
                     {/* Button */}
                     <button onClick={() => toggleForm('nurse')} className={`mt-8 px-6 py-2 
-                        ${activeRole === 'nurse' ? 'bg-white' : 'bg-[#FFB561]'} 
-                        font-bold text-[#1C2A4D] rounded-md transition duration-200`}>
+                        ${activeRole === 'nurse' ? 'bg-[#FFB561] text-[#1C2A4D]' : 'text-white bg-transparent border-[#FFB561]'} 
+                        border-[#FFB561] border-2 font-bold text-white rounded-md transition duration-200`}>
                         Nurse
                     </button>
                     {/* Button */}
                     <button onClick={() => toggleForm('patient')} className={`mt-8 px-6 py-2 
-                        ${activeRole === 'patient' ? 'bg-white' : 'bg-[#FFB561]'} 
-                        font-bold text-[#1C2A4D] rounded-md transition duration-200`}>
+                        ${activeRole === 'patient' ? 'bg-[#FFB561] text-[#1C2A4D]' : 'text-white bg-transparent border-[#FFB561]'} 
+                        border-[#FFB561] border-2 font-bold text-white rounded-md transition duration-200`}>
                         Patient
                     </button>
                 </div>
