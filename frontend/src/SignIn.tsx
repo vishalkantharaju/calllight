@@ -6,7 +6,8 @@ function SignIn() {
   const nav = useNavigate();
   const [showForm, setShowForm] = useState(false); 
   const [formSlide, setFormSlide] = useState(false);
-  const [activeRole, setActiveRole] = useState<'nurse' | 'patient' | null>(null);
+  const [activeRole, setActiveRole] = useState<'nurse' | 
+    'patient' | null>(null);
 
   const toggleForm = (role: 'nurse' | 'patient') => {
     setShowForm(true); 
@@ -42,15 +43,19 @@ function SignIn() {
 
                 <div className="flex items-center space-x-4">
                     {/* Button */}
-                    <button onClick={() => toggleForm('nurse')} className={`mt-8 px-6 py-2 
-                        ${activeRole === 'nurse' ? 'bg-[#FFB561] text-[#1C2A4D]' : 'text-white bg-transparent border-[#FFB561]'} 
-                        border-[#FFB561] border-2 font-bold text-white rounded-md transition duration-200`}>
+                    <button onClick={() => toggleForm('nurse')} 
+                    className={`mt-8 px-6 py-2 
+                        ${activeRole === 
+                            'nurse' ? 'bg-[#FFB561] text-[#1C2A4D]' : 'text-white bg-transparent border-[#FFB561]'} 
+                        border-[#FFB561] border-2 font-bold text-white 
+                        rounded-md transition duration-200`}>
                         Nurse
                     </button>
                     {/* Button */}
                     <button onClick={() => toggleForm('patient')} className={`mt-8 px-6 py-2 
                         ${activeRole === 'patient' ? 'bg-[#FFB561] text-[#1C2A4D]' : 'text-white bg-transparent border-[#FFB561]'} 
-                        border-[#FFB561] border-2 font-bold text-white rounded-md transition duration-200`}>
+                        border-[#FFB561] border-2 font-bold text-white 
+                        rounded-md transition duration-200`}>
                         Patient
                     </button>
                 </div>
@@ -59,12 +64,14 @@ function SignIn() {
             {/* Sliding Sign-In Form */}
             {showForm && (
         <div
-          className={`absolute top-36 right-36 w-1/3 h-full p-8 transition-transform duration-500 
+          className={`absolute top-36 right-36 w-1/3 h-full p-8 
+            transition-transform duration-500 
             ${formSlide ? 'translate-x-0' : 'translate-x-full'}`}>
           <h2 className="text-2xl font-bold text-[#1C2A4D]">SIGN IN</h2>
           <form className="mt-4">
             <div>
-              <label className="block text-sm font-semibold text-[#1C2A4D]">Email</label>
+              <label className="block text-sm font-semibold 
+                text-[#1C2A4D]">Email</label>
               <input
                 type="email"
                 placeholder="Enter your email"
@@ -72,7 +79,8 @@ function SignIn() {
               />
             </div>
             <div className="mt-4">
-              <label className="block text-sm font-semibold text-[#1C2A4D]">Password</label>
+              <label className="block text-sm font-semibold 
+                text-[#1C2A4D]">Password</label>
               <input
                 type="password"
                 placeholder="Enter your password"
@@ -81,8 +89,8 @@ function SignIn() {
             </div>
             <button
               type="submit"
-              className="text-left mt-6 px-4 py-2 bg-[#FFB561] text-[#1C2A4D] font-bold rounded-md w-1/4 hover:text-white"
-            >
+              className="text-left mt-6 px-4 py-2 bg-[#FFB561] 
+                text-[#1C2A4D] font-bold rounded-md w-1/4 hover:text-white">
               Sign In
             </button>
           </form>
