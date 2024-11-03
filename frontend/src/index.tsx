@@ -10,6 +10,8 @@ import PatientPortal from './PatientPortal';
 import PatientProviders from './PatientProviders';
 import PatientInfo from './PatientInfo';
 import {Toaster} from './components/ui/toaster'
+import NurseResolved from './NurseResolved';
+import NurseTotal from './NurseTotal';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -22,6 +24,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/patient" Component={PatientPortal} />
           <Route path="/patient-providers" Component={PatientProviders} />
           <Route path="/patient-info" Component={PatientInfo} />
+          <Route path="/nurse-resolved" Component={NurseResolved} />
+          <Route path="/nurse-total" Component={NurseTotal} />
         </Routes>
         <Toaster/>
     </Router>

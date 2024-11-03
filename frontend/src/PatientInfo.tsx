@@ -1,10 +1,30 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react'; 
+import { useState, useEffect } from 'react'; 
 import nurse_background from './assets/nurse_background.svg';
 import timeline from './assets/timeline.png';
+import EKG from './components/Heart_Rate';
+import orange_logo from './assets/orange_logo.png'
 
 function PatientInfo() {
   const nav = useNavigate();
+  const [activeTab, setActiveTab] = useState('timeline');
+
+  const handleNavigation = (tab: string) => {
+    setActiveTab(tab);
+    switch (tab) {
+      case 'patient':
+        nav('/patient'); // Replace with your actual route
+        break;
+      case 'providers':
+        nav('/patient-providers'); // Replace with your actual route
+        break;
+      case 'timeline':
+        nav('/patient-info'); // Replace with your actual route
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div className="relative h-screen w-screen">
@@ -16,14 +36,38 @@ function PatientInfo() {
         </div>
 
         {/* Tab */}
+        
         <div className="absolute top-4 md:top-8 left-36 md:left-64 flex flex-col items-start space-y-6">
+        <div className="flex items-center space-x-16">
           <span className="text-white text-xl md:text-4xl font-bold">
             PATIENT NAME (BACKEND)
           </span>
-          <div className="flex items-center space-x-6">
-            <span className="mt-[3rem] text-xs md:text-lg text-[#1C2A4D] font-semibold">Requests</span>
-            <span className="mt-[3rem] text-xs md:text-lg text-[#1C2A4D] font-semibold">Your Providers</span>
-            <span className="mt-[3rem] text-xs md:text-lg text-[#1C2A4D] font-semibold">Your Timeline</span>
+          <button onClick={() => {nav('/')}} style={{ border: 'none', background: 'transparent' }}>
+            <img src={orange_logo} className="w-14 h-14" />
+          </button>
+        </div>
+          <div className="flex items-center space-x-16">
+            <button 
+              className={`mt-6 h-12 w-32 ${activeTab === 'patient' ? 'bg-[#E4E4E4]' : 'bg-transparent'}`} 
+              style={{ border: 'none' }} 
+              onClick={() => handleNavigation('patient')}
+            >
+              <span className="text-xs md:text-lg text-[#1C2A4D] font-semibold">Requests</span>
+            </button>
+            <button 
+              className={`mt-6 h-12 w-32 ${activeTab === 'providers' ? 'bg-[#E4E4E4]' : 'bg-transparent'}`} 
+              style={{ border: 'none' }} 
+              onClick={() => handleNavigation('providers')}
+            >
+              <span className="text-xs md:text-lg text-[#1C2A4D] font-semibold">Your Providers</span>
+            </button>
+            <button 
+              className={`mt-6 h-12 w-32 ${activeTab === 'timeline' ? 'bg-[#E4E4E4]' : 'bg-transparent'}`} 
+              style={{ border: 'none' }} 
+              onClick={() => handleNavigation('timeline')}
+            >
+              <span className="text-xs md:text-lg text-[#1C2A4D] font-semibold">Your Timeline</span>
+            </button>
           </div>
 
           {/* Main Flex Container */}
@@ -67,15 +111,21 @@ function PatientInfo() {
               <span className="mt-5 text-[#1C2A4D] md:text-lg font-bold">
                   Vitals
               </span>
-
+              
+              <div className="flex mt-8 space-x-8 items-center ">
               {/* Heart Rate */}
-              <div className="flex items-center flex-col mt-8 w-36 h-20 bg-white shadow-md rounded-lg p-2">
-                <p className="text-sm font-bold text-red-700">
-                  Heart Rate
-                </p>
-                <p className="text-xl font-bold mt-2 text-red-700">
-                  96 bpm
-                </p>
+                <div className="flex items-center flex-col mt-8 w-36 h-20 bg-white shadow-md rounded-lg p-2">
+                  <p className="text-sm font-bold text-red-700">
+                    Heart Rate
+                  </p>
+                  <p className="text-xl font-bold mt-2 text-red-700">
+                    96 bpm
+                  </p>
+                </div>
+                {/* EKG Symbol */}
+                <div className="mt-6">
+                    <EKG />
+                </div>
               </div>
               
               <div className="flex mt-8 space-x-8">

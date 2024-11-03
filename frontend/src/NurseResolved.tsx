@@ -3,12 +3,9 @@ import { useState, useEffect } from 'react';
 import nurse_background from './assets/nurse_background.svg'
 import orange_logo from './assets/orange_logo.png'
 
-function NursePortal() {
+function NurseResolved() {
   const nav = useNavigate();
-  const [activeTab, setActiveTab] = useState('nurse');
-  useEffect(() => {
-    nav('/nurse'); // Navigate to the requests page on mount
-  }, [nav]); // Add nav as a dependency
+  const [activeTab, setActiveTab] = useState('resolved');
 
   const handleNavigation = (tab: string) => {
     setActiveTab(tab);
@@ -115,4 +112,4 @@ function NursePortal() {
   );
 }
 
-export default NursePortal;
+export default NurseResolved;
