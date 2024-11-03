@@ -98,7 +98,7 @@ function NurseResolved() {
                                 Resolve
                               </button>
                               <button className="bg-[#FFB561] hover:bg-blue-700 text-[#1C2A4D] text-sm py-1 px-2 rounded">
-                                Decline
+                                Help
                               </button>
                               </div>
                             </td>
