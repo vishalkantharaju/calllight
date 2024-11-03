@@ -62,7 +62,7 @@ function NursePortal() {
                               <button className="bg-[#1C2A4D] hover:bg-blue-700 text-white text-sm py-1 px-2 mr-2 rounded">
                                 Resolve
                               </button>
-                              <button className="bg-[#FFB561] hover:bg-red-700 text-[#1C2A4D] text-sm py-1 px-2 rounded">
+                              <button className="bg-[#FFB561] hover:bg-blue-700 text-[#1C2A4D] text-sm py-1 px-2 rounded">
                                 Decline
                               </button>
                               </div>
