@@ -5,6 +5,7 @@ import Home from './Home';
 import SignIn from './SignIn'
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import NursePortal from './NursePortal';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Routes>
           <Route path="/" Component={Home} />
           <Route path="/login" Component={SignIn} />
+          <Route path="/nurse" Component={NursePortal} />
         </Routes>
     </Router>
   </React.StrictMode>,
