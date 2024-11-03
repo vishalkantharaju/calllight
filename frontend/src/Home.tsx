@@ -28,7 +28,7 @@ function App() {
         </div>
 
         {/* Text */}
-        <div className="absolute top-48 left-28 flex flex-col items-start">
+        <div className="absolute top-48 lg:top-56 left-28 flex flex-col items-start">
           
           <div className="flex items-center space-x-4">
             <img src={orange_logo} className="w-14 h-14" />
