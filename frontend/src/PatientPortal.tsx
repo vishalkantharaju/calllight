@@ -237,21 +237,21 @@ const recordingOff = () => {
         </div>
           <div className="flex items-center space-x-16">
             <button 
-              className={`mt-6 h-12 w-32 ${activeTab === 'patient' ? 'bg-[#E4E4E4]' : 'bg-transparent'}`} 
+              className={`mt-6 h-12 w-32 ${activeTab === 'patient' ? 'bg-[#E4E4E4] hover:bg-[#C0C0C0]' : 'bg-transparent'} hover:bg-gray-200`} 
               style={{ border: 'none' }} 
               onClick={() => handleNavigation('patient')}
             >
               <span className="text-xs md:text-lg text-[#1C2A4D] font-semibold">Requests</span>
             </button>
             <button 
-              className={`mt-6 h-12 w-32 ${activeTab === 'providers' ? 'bg-[#E4E4E4]' : 'bg-transparent'}`} 
+              className={`mt-6 h-12 w-32 ${activeTab === 'providers' ? 'bg-[#E4E4E4] hover:bg-[#C0C0C0]' : 'bg-transparent'} hover:bg-gray-200`} 
               style={{ border: 'none' }} 
               onClick={() => handleNavigation('providers')}
             >
               <span className="text-xs md:text-lg text-[#1C2A4D] font-semibold">Your Providers</span>
             </button>
             <button 
-              className={`mt-6 h-12 w-32 ${activeTab === 'timeline' ? 'bg-[#E4E4E4]' : 'bg-transparent'}`} 
+              className={`mt-6 h-12 w-32 ${activeTab === 'timeline' ? 'bg-[#E4E4E4] hover:bg-[#C0C0C0]' : 'bg-transparent'} hover:bg-gray-200`} 
               style={{ border: 'none' }} 
               onClick={() => handleNavigation('timeline')}
             >
