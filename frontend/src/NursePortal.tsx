@@ -137,7 +137,7 @@ function NursePortal() {
             <table className="mt-4 w-full text-left rounded-lg">
               <thead>
                 <tr className="bg-white text-left text-[#1C2A4D] text-xs sm:text-small border-2 border-[#E4E4E4]">
-                  {/* <th className="px-4 py-2 sm:w-36">Room #</th> */}
+                  <th className="px-4 py-2 sm:w-36">Room #</th>
                   <th className="text-left px-4 py-2 w-96">Request</th>
                   <th className="px-4 py-2 w-4 sm:w-36" >Severity</th>
                   {/* <th className="px-4 py-2 w-4 sm:w-24" >Time</th> */}
@@ -146,11 +146,25 @@ function NursePortal() {
               </thead>
               <tbody>
                 {/* Table rows will go here */}
-                {adata && adata.map((request, index) => (
+                {adata && adata
+    .sort((a, b) => {
+      const priorityOrder: { [key in "Emergency" | "Immediate" | "Moderate" | "Routine"]: number } = {
+        "Emergency": 1,
+        "Immediate": 2,
+        "Moderate": 3,
+        "Routine": 4,
+      };
+      return priorityOrder[a.priority as "Emergency" | "Immediate" | "Moderate" | "Routine"] - priorityOrder[b.priority as "Emergency" | "Immediate" | "Moderate" | "Routine"];
+    }).map((request, index) => (
   <tr key={index} className="bg-gray-100 border-b border-[#E4E4E4]">
-    {/* <td className="px-4 py-2 text-[#1C2A4D]">{request.roomNumber}</td> */}
+    <td className="px-4 py-2 text-[#1C2A4D]">{Math.floor(Math.random() * 101) + 300}</td>
     <td className="px-4 py-2 text-[#1C2A4D] text-left">{request.transcript}</td>
-    <td className="px-4 py-2 text-red-700 font-semibold">{request.priority}</td>
+    <td className={`px-4 py-2 font-semibold ${
+    request.priority === 'Emergency' ? 'text-red-900' :
+    request.priority === 'Immediate' ? 'text-red-500' :
+    request.priority === 'Moderate' ? 'text-yellow-500' :
+    'text-green-500'
+  }`}>{request.priority}</td>
     {/* <td className="px-4 py-2 text-[#1C2A4D]">{request.waitTime}</td> */}
     <td className="px-4 py-2 text-[#1C2A4D]">
       <div className="flex space-x-2">
