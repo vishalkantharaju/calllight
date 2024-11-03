@@ -5,7 +5,9 @@ import Home from './Home';
 import SignIn from './SignIn'
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-
+import NursePortal from './NursePortal';
+import PatientPortal from './PatientPortal';
+import PatientProviders from './PatientProviders';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -14,6 +16,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Routes>
           <Route path="/" Component={Home} />
           <Route path="/login" Component={SignIn} />
+          <Route path="/nurse" Component={NursePortal} />
+          <Route path="/patient" Component={PatientPortal} />
+          <Route path="/patient-providers" Component={PatientProviders} />
         </Routes>
     </Router>
   </React.StrictMode>,
