@@ -138,10 +138,10 @@ function NursePortal() {
               <thead>
                 <tr className="bg-white text-left text-[#1C2A4D] text-xs sm:text-small border-2 border-[#E4E4E4]">
                   {/* <th className="px-4 py-2 sm:w-36">Room #</th> */}
-                  <th className="text-left px-4 py-2 w-72">Request</th>
-                  <th className="px-4 py-2 w-4 sm:w-24" >Severity</th>
+                  <th className="text-left px-4 py-2 w-96">Request</th>
+                  <th className="px-4 py-2 w-4 sm:w-36" >Severity</th>
                   {/* <th className="px-4 py-2 w-4 sm:w-24" >Time</th> */}
-                  <th className="px-4 py-2 w-4 sm:w-36">Action</th>
+                  <th className="px-4 py-2 sm:w-40 ">Action</th>
                 </tr>
               </thead>
               <tbody>
