@@ -6,35 +6,35 @@ from flask_cors import cross_origin
 import shared.db.model as db_model
 from shared.types.status import ErrorResponse
 from flask_pydantic import validate
-from shared.types.nurse import NurseLoginRequest, NurseLoginResponse
+from shared.types.patient import PatientLoginRequest, PatientLoginResponse
 # from shared.types.ambulance import GetAmbulanceRequest, GetAmbulanceResponse, GetAmbResponse, AmbulanceLoginRequest, AmbulanceLoginResponse
 from shared.db.schema import NurseSchema
 from bson import ObjectId
 
-nurse_bp = Blueprint("nurse", __name__)
+patient_bp = Blueprint("patient", __name__)
 
-class PopulateNurses(MethodView):
+class PopulatePatients(MethodView):
     def get(self) -> Tuple[str, str]:
-        db_model.populate_nurses()
+        db_model.populate_patients()
         return "Success", "Hi"
 
-class DeleteNurses(MethodView):
+class DeletePatients(MethodView):
     def get(self) -> Tuple[str, str]:
-        db_model.delete_ambulances()
+        db_model.delete_patients()
         return "Success", "Hi"
 
-class VerifyNurse(MethodView):
+class VerifyPatient(MethodView):
     @cross_origin(headers=["Content-Type", "Authorization"])
     @validate()
-    def get(self, query : NurseLoginRequest) -> Tuple[Response, int]:
-        response, err = db_model.login_nurse(query.username, query.password)
-        print('asas')
+    def get(self, query : PatientLoginRequest) -> Tuple[Response, int]:
+        response, err = db_model.login_patient(query.username, query.password)
+
         if err is not None:
             return jsonify(dict(ErrorResponse(err=err))), 404
-        print('asas')
-        resp = NurseLoginResponse(**response.dict(), success=True)
+
+        resp = PatientLoginResponse(**response.dict(), success=True)
         return jsonify(dict(resp)), 200
     
-nurse_bp.add_url_rule("/populate", view_func=PopulateNurses.as_view("populate"), methods=["GET"])
-nurse_bp.add_url_rule("/delete", view_func=DeleteNurses.as_view("delete"), methods=["GET"])
-nurse_bp.add_url_rule("/login", view_func=VerifyNurse.as_view("login"), methods=['GET'])
+patient_bp.add_url_rule("/populate", view_func=PopulatePatients.as_view("populate"), methods=["GET"])
+patient_bp.add_url_rule("/delete", view_func=DeletePatients.as_view("delete"), methods=["GET"])
+patient_bp.add_url_rule("/login", view_func=VerifyPatient.as_view("login"), methods=['GET'])

@@ -32,7 +32,7 @@ function App() {
           
           <div className="flex items-center space-x-4">
             <img src={orange_logo} className="w-14 h-14" />
-            <span className="mt-1 text-[#FFB561] text-4xl font-semibold">
+            <span className="mt-1 text-[#FFB561] text-5xl font-semibold">
               CALL LIGHT
             </span>
           </div>

@@ -9,6 +9,7 @@ import NursePortal from './NursePortal';
 import PatientPortal from './PatientPortal';
 import PatientProviders from './PatientProviders';
 import PatientInfo from './PatientInfo';
+import {Toaster} from './components/ui/toaster'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/patient-providers" Component={PatientProviders} />
           <Route path="/patient-info" Component={PatientInfo} />
         </Routes>
+        <Toaster/>
     </Router>
   </React.StrictMode>,
 )

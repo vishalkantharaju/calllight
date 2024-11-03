@@ -1,8 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import login_background from './assets/login_background.svg'
-import { useState } from 'react'; 
+import { act, useState } from 'react'; 
+import { useToast } from "./components/ui/use-toast"
+import { Input } from "./components/ui/input"
+
+interface LoginResponse {
+  id: string,
+  err: string,
+  success: boolean
+}
 
 function SignIn() {
+  const { toast } = useToast();
   const nav = useNavigate();
   const [showForm, setShowForm] = useState(false); 
   const [formSlide, setFormSlide] = useState(false);
@@ -16,6 +25,85 @@ function SignIn() {
     }, 10); 
     setActiveRole(role);
   };
+
+  const [usery, setUsername] = useState<string>('');
+  const [passy, setPassword] = useState<string>('');
+
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setPassword(event.target.value);
+  };
+
+  function login() {
+    console.log('asa')
+    setTimeout(() => {
+      console.log('Action performed after delay');
+    }, 2000)
+    if (activeRole === null) {
+        toast({
+            title: "Uh-oh! Looks like you forgot to fill out a field!",
+            description: "Please make sure to select whether you are a nurse or volunteer!",
+        })
+        return;
+    } else if (activeRole == 'nurse') {
+      fetch(
+            'http://localhost:5000' + `/api/v1/nurse/login?username=${usery}&password=${passy}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          )
+          .then(response => response.json() as Promise<LoginResponse>)
+          .then(data => {
+            if (data.success) {  
+              const url = `/nurse?id=${data.id}`;
+                console.log(url);
+                nav(url);
+            } else {
+                toast({
+                    title: "Wrong credentials entered!",
+                    description: "Please try again.",
+                })
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+    } 
+    else if (activeRole == 'patient') {
+        fetch(
+            'http://localhost:5000' + `/api/v1/patient/login?username=${usery}&password=${passy}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          )
+          .then(response => response.json() as Promise<LoginResponse>)
+          .then(data => {
+            if (data.success) {
+                const url = `/patient?id=${data.id}`;
+                nav(url);
+            } else {
+                toast({
+                    title: "Wrong credentials entered!",
+                    description: "Please try again.",
+                })
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+            toast({
+              title: "Something went wrong!",
+              description: "Please try again later.",
+          })
+          });
+    }
+}
 
   return (
     <div className="relative h-screen w-screen">
@@ -38,7 +126,7 @@ function SignIn() {
                 BACK
                 </span>
                 <span className="mt-8 text-white text-xl w-2/3 font-semibold">
-                Are you signing in for a patient or as a nurse?
+                Are you signing in as a patient or as a nurse?
                 </span>
 
                 <div className="flex items-center space-x-4">
@@ -49,7 +137,7 @@ function SignIn() {
                         ${activeRole === 
                             'nurse' ? 'bg-[#FFB561] text-[#1C2A4D]' : 'text-white bg-transparent border-[#FFB561]'} 
                         border-[#FFB561] border-2 font-bold text-white 
-                        rounded-md transition duration-200`}>
+                        rounded-md transition duration-200 hover:scale-110 active:scale-95`}>
                         Nurse
                     </button>
                     
@@ -57,7 +145,7 @@ function SignIn() {
                     <button onClick={() => toggleForm('patient')} className={`mt-8 px-6 py-2 
                         ${activeRole === 'patient' ? 'bg-[#FFB561] text-[#1C2A4D]' : 'text-white bg-transparent border-[#FFB561]'} 
                         border-[#FFB561] border-2 font-bold text-white 
-                        rounded-md transition duration-200`}>
+                        rounded-md transition duration-200 hover:scale-110 active:scale-95`}>
                         Patient
                     </button>
                 </div>
@@ -74,25 +162,18 @@ function SignIn() {
             <div>
               <label className="block text-sm font-semibold 
                 text-[#1C2A4D]">Email</label>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="border mt-2 rounded-md w-3/4 p-2"
-              />
+              <Input placeholder='Enter your email' className='border mt-2 rounded-md w-3/4 p-2' value={usery} onChange={handleUsernameChange}/>
             </div>
             <div className="mt-4">
               <label className="block text-sm font-semibold 
                 text-[#1C2A4D]">Password</label>
-              <input
-                type="password"
-                placeholder="Enter your password"
-                className="border mt-2 rounded-md w-3/4 p-2"
-              />
+              <Input placeholder='Enter your password' className='border mt-2 rounded-md w-3/4 p-2' value={passy} onChange={handlePasswordChange}/>
             </div>
             <button
-              type="submit"
-              className="text-left mt-6 px-4 py-2 bg-[#FFB561] 
-                text-[#1C2A4D] font-bold rounded-md w-1/4 hover:text-white">
+              type="button"
+              className="text-center mt-6 px-4 py-2 bg-[#FFB561] 
+                text-[#1C2A4D] font-bold rounded-md w-1/4 hover:text-white hover:scale-110 active:scale-95 transition"
+                onClick={login}>
               Sign In
             </button>
           </form>
